@@ -8,11 +8,12 @@ namespace Snake_2._0
 {
     internal class Line
     {
-        private List<Symbol>line=new List<Symbol>();
+        
         public readonly int Length;
         public Direction direction { get; set; }
 
-        private Symbol origin;
+        protected Symbol origin;
+        protected List<Symbol> line = new List<Symbol>();
 
         public Line(Symbol symbol,int length, Direction direction)
         {
