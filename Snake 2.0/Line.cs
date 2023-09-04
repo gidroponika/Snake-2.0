@@ -9,7 +9,7 @@ namespace Snake_2._0
     internal class Line
     {
         public int Length { get; protected set; }
-        public Direction direction { get; set; }
+        public Direction Direction { get; set; }
 
         protected Symbol origin;
         protected List<Symbol> line = new List<Symbol>();
@@ -18,13 +18,13 @@ namespace Snake_2._0
         {
             origin = symbol;
             Length = length;
-            this.direction = direction;
+            Direction = direction;
 
             InitialLine();
         }
         protected void InitialLine()
         {
-            switch (direction)
+            switch (Direction)
             {
                 case Direction.Right:
                     for (int i = 0; i < Length; i++)

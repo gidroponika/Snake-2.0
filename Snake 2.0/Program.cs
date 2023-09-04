@@ -28,9 +28,31 @@
             down.Draw();
             snake.Draw();
 
-            //while (true)
-            //{ }
-            Console.SetCursorPosition(0, 37);
+            while (true)
+            {
+                //snake.Move(snake.direction);
+                //Thread.Sleep(300);
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key= Console.ReadKey();
+                    if(key.Key == ConsoleKey.DownArrow)
+                    {
+                        snake.Direction = Direction.Down;
+                    }else if(key.Key == ConsoleKey.UpArrow)
+                    {
+                        snake.Direction = Direction.Top;
+                    }else if(key.Key == ConsoleKey.LeftArrow)
+                    {
+                        snake.Direction = Direction.Left;
+                    }else if(key.Key == ConsoleKey.RightArrow)
+                    {
+                        snake.Direction = Direction.Right;
+                    }
+                }
+                snake.Move();
+                Thread.Sleep(300);
+            }
+            //Console.SetCursorPosition(0, 37);
         }
     }
 }

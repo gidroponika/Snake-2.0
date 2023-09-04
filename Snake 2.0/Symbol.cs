@@ -51,11 +51,5 @@ namespace Snake_2._0
             Console.SetCursorPosition(X, Y);
             Console.Write(' ');
         }
-
-        public virtual void Draw(int x, int y)
-        {
-            Console.SetCursorPosition(x, y);
-            Console.Write(Sign);
-        }
     }
 }
