@@ -8,16 +8,15 @@ namespace Snake_2._0
 {
     internal class Line
     {
-        
-        public readonly int Length;
+        public int Length { get; protected set; }
         public Direction direction { get; set; }
 
         protected Symbol origin;
         protected List<Symbol> line = new List<Symbol>();
 
-        public Line(Symbol symbol,int length, Direction direction)
+        public Line(Symbol symbol, Direction direction, int length)
         {
-            origin= symbol;
+            origin = symbol;
             Length = length;
             this.direction = direction;
 
@@ -30,25 +29,25 @@ namespace Snake_2._0
                 case Direction.Right:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X + i, origin.Y, origin.Token));
+                        line.Add(new Symbol(origin.X + i, origin.Y, origin.Sign));
                     }
                     break;
                 case Direction.Left:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X - i, origin.Y, origin.Token));
+                        line.Add(new Symbol(origin.X - i, origin.Y, origin.Sign));
                     }
                     break;
                 case Direction.Down:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X, origin.Y + i, origin.Token));
+                        line.Add(new Symbol(origin.X, origin.Y + i, origin.Sign));
                     }
                     break;
                 case Direction.Top:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X, origin.Y - i, origin.Token));
+                        line.Add(new Symbol(origin.X, origin.Y - i, origin.Sign));
                     }
                     break;
             }
