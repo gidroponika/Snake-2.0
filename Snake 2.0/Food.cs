@@ -8,7 +8,7 @@ namespace Snake_2._0
 {
     internal class Food : Symbol
     {
-        Random rnd=new Random();
+        static Random rnd=new Random();
         public Food()
         {
             Sign = '*';
@@ -32,6 +32,18 @@ namespace Snake_2._0
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(Sign);
             Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        public bool IsHitSnake(IEnumerable<Symbol> snake)
+        {
+            foreach(Symbol sym in snake)
+            {
+                if(sym.X == X && sym.Y == Y)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

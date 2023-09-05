@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Snake_2._0
 {
     internal class Snake : Line
     {
         Direction direction;
-        public new Direction Direction
+        Direction Direction
         {
             get
             {
@@ -38,10 +39,10 @@ namespace Snake_2._0
 
         public void Move()
         {
-            Symbol tail = line.First();
-            line.Remove(tail);
+            Symbol tail = _Line.First();
+            _Line.Remove(tail);
             Symbol newHead=GetNewHead();
-            line.Add(newHead);
+            _Line.Add(newHead);
 
             newHead.Draw();
             tail.Clear();
@@ -49,10 +50,30 @@ namespace Snake_2._0
 
         public Symbol GetNewHead()
         {
-            Symbol head = line.Last();
+            Symbol head = _Line.Last();
             Symbol newHead = new(head.X,head.Y,head.Sign);
             newHead.Move(1, Direction);
             return newHead;
+        }
+
+        public void HandleKey(ConsoleKey key)
+        {
+            if (key == ConsoleKey.DownArrow)
+            {
+                Direction = Direction.Down;
+            }
+            else if (key == ConsoleKey.UpArrow)
+            {
+                Direction = Direction.Top;
+            }
+            else if (key == ConsoleKey.LeftArrow)
+            {
+                Direction = Direction.Left;
+            }
+            else if (key == ConsoleKey.RightArrow)
+            {
+                Direction = Direction.Right;
+            }
         }
     }
 }

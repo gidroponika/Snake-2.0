@@ -12,14 +12,15 @@ namespace Snake_2._0
         public Direction Direction { get; set; }
 
         protected Symbol origin;
-        protected List<Symbol> line = new List<Symbol>();
+        public List<Symbol> _Line { get; protected set; }
 
         public Line(Symbol symbol, Direction direction, int length)
         {
+            _Line = new List<Symbol>();
             origin = symbol;
             Length = length;
             Direction = direction;
-
+            
             InitialLine();
         }
         protected void InitialLine()
@@ -29,25 +30,25 @@ namespace Snake_2._0
                 case Direction.Right:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X + i, origin.Y, origin.Sign));
+                        _Line.Add(new Symbol(origin.X + i, origin.Y, origin.Sign));
                     }
                     break;
                 case Direction.Left:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X - i, origin.Y, origin.Sign));
+                        _Line.Add(new Symbol(origin.X - i, origin.Y, origin.Sign));
                     }
                     break;
                 case Direction.Down:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X, origin.Y + i, origin.Sign));
+                        _Line.Add(new Symbol(origin.X, origin.Y + i, origin.Sign));
                     }
                     break;
                 case Direction.Top:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X, origin.Y - i, origin.Sign));
+                        _Line.Add(new Symbol(origin.X, origin.Y - i, origin.Sign));
                     }
                     break;
             }
@@ -55,7 +56,7 @@ namespace Snake_2._0
 
         virtual public void Draw()
         {
-            foreach (Symbol symbol in line)
+            foreach (Symbol symbol in _Line)
             {
                 symbol.Draw();
             }
