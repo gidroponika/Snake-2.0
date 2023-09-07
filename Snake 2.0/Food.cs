@@ -8,17 +8,17 @@ namespace Snake_2._0
 {
     internal class Food : Symbol
     {
-        static Random rnd=new Random();
+        static Random rnd = new Random();
         public Food()
         {
-            Sign = '*';
+            Sign = '$';
             Create();
             Draw();
         }
 
-        protected Food(int x, int y, char sign) 
+        protected Food(int x, int y, char sign)
             : base(x, y, sign)
-        {}
+        { }
 
         public void Create()
         {
@@ -29,21 +29,9 @@ namespace Snake_2._0
         public override void Draw()
         {
             Console.SetCursorPosition(X, Y);
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write(Sign);
             Console.ForegroundColor = ConsoleColor.Gray;
-        }
-
-        public bool IsHitSnake(IEnumerable<Symbol> snake)
-        {
-            foreach(Symbol sym in snake)
-            {
-                if(sym.X == X && sym.Y == Y)
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Snake_2._0
 {
     internal class Snake : Line
     {
+        public event Action Eated;
         Direction direction;
         Direction Direction
         {
@@ -31,29 +32,53 @@ namespace Snake_2._0
             }
         }
 
-        public Snake(Symbol symbol, Direction direction=Direction.Left, int length = 3)
+        public Snake(Symbol symbol, Direction direction = Direction.Left, int length = 3)
             : base(symbol, direction, length)
         {
-            this.direction=direction;
+            this.direction = direction;
         }
 
         public void Move()
         {
             Symbol tail = _Line.First();
             _Line.Remove(tail);
-            Symbol newHead=GetNewHead();
+            Symbol newHead = GetNewHead();
             _Line.Add(newHead);
 
             newHead.Draw();
             tail.Clear();
         }
 
+        public void Grow()
+        {
+            Symbol head = GetNewHead();
+            _Line.Add(head);
+            head.Draw();
+        }
+
+        public bool EatYourself()
+        {
+            for (int i = 0; i < _Line.Count - 1; i++)
+            {
+                if (_Line.Last().X == _Line[i].X && _Line.Last().Y == _Line[i].Y)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public Symbol GetNewHead()
         {
             Symbol head = _Line.Last();
-            Symbol newHead = new(head.X,head.Y,head.Sign);
+            Symbol newHead = new(head.X, head.Y, head.Sign);
             newHead.Move(1, Direction);
             return newHead;
+        }
+
+        public void EventCall()
+        {
+            Eated.Invoke();
         }
 
         public void HandleKey(ConsoleKey key)

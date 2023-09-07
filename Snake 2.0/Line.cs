@@ -20,7 +20,7 @@ namespace Snake_2._0
             origin = symbol;
             Length = length;
             Direction = direction;
-            
+
             InitialLine();
         }
         protected void InitialLine()
