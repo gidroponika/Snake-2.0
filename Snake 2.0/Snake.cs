@@ -10,6 +10,24 @@ namespace Snake_2._0
     internal class Snake : Line
     {
         public event Action Eated;
+
+        int speed;
+
+        public int Speed
+        {
+            get { return speed; }
+            set
+            {
+                if (Direction == Direction.Right || Direction == Direction.Left)
+                {
+                    speed = value;
+                }
+                else
+                {
+                    speed = (int)(value * 1.5);
+                }
+            }
+        }
         Direction direction;
         Direction Direction
         {
@@ -35,6 +53,7 @@ namespace Snake_2._0
         public Snake(Symbol symbol, Direction direction = Direction.Left, int length = 3)
             : base(symbol, direction, length)
         {
+            speed = 100;
             this.direction = direction;
         }
 
@@ -49,14 +68,19 @@ namespace Snake_2._0
             tail.Clear();
         }
 
-        public void Grow()
+        public void Eat()
         {
             Symbol head = GetNewHead();
             _Line.Add(head);
             head.Draw();
         }
 
-        public bool EatYourself()
+        public Symbol GetHead()
+        {
+            return _Line.Last();
+        }
+
+        public bool IsEatYourself()
         {
             for (int i = 0; i < _Line.Count - 1; i++)
             {
@@ -66,14 +90,6 @@ namespace Snake_2._0
                 }
             }
             return true;
-        }
-
-        public Symbol GetNewHead()
-        {
-            Symbol head = _Line.Last();
-            Symbol newHead = new(head.X, head.Y, head.Sign);
-            newHead.Move(1, Direction);
-            return newHead;
         }
 
         public void EventCall()
@@ -99,6 +115,15 @@ namespace Snake_2._0
             {
                 Direction = Direction.Right;
             }
+            Speed = 100;
+        }
+
+        Symbol GetNewHead()
+        {
+            Symbol head = _Line.Last();
+            Symbol newHead = new(head.X, head.Y, head.Sign);
+            newHead.Move(Direction);
+            return newHead;
         }
     }
 }

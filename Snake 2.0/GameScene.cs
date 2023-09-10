@@ -7,55 +7,40 @@ using System.Xml.Linq;
 
 namespace Snake_2._0
 {
-    internal class GameScene
+    internal class GameScene : Scene
     {
-        bool isPlaying;
-        Line top, left, right, down;
+        int score;
+
         Snake snake;
         Food food;
-        int widthScen, heightScene, score;
-        public GameScene(int widthScen, int heightScene)
+
+        public GameScene(Border border) : base(border)
         {
-            this.widthScen = widthScen;
-            this.heightScene = heightScene;
+
             score = 0;
+            isActive = true;
 
-            Console.SetWindowSize(widthScen, heightScene);
-            Console.SetBufferSize(widthScen, heightScene);
-            Console.CursorVisible = false;
-            isPlaying = true;
-
-            top = new Line(new Symbol(0, 0, '#'), Direction.Right, widthScen);
-            left = new Line(new Symbol(0, 0, '#'), Direction.Down, heightScene - 10);
-            right = new Line(new Symbol(widthScen - 1, 0, '#'), Direction.Down, heightScene - 10);
-            down = new Line(new Symbol(0, heightScene - 10, '#'), Direction.Right, widthScen);
-            snake = new Snake(new Symbol(45, 15, '@'));
-            food = new Food();
-
-            top.Draw();
-            left.Draw();
-            right.Draw();
-            down.Draw();
-            snake.Draw();
-            AddScore();
+            snake = new(new Symbol(border.WidthScen / 2, border.HeightScene / 2, '@'));
+            food = new();
 
             snake.Eated += CreateFood;
             snake.Eated += food.Draw;
             snake.Eated += AddScore;
         }
 
-        public void Play()
+        public override void Update()
         {
-            while (isPlaying)
+            while (isActive)
             {
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
                     snake.HandleKey(key.Key);
                 }
+
                 if (IsEated())
                 {
-                    snake.Grow();
+                    snake.Eat();
                     score++;
                     snake.EventCall();
                 }
@@ -64,15 +49,24 @@ namespace Snake_2._0
                     snake.Move();
                 }
 
-                isPlaying = snake.EatYourself();
+                isActive = snake.IsEatYourself() && border.IsOutBorder(snake.GetHead());
 
-                Thread.Sleep(100);
+                Thread.Sleep(snake.Speed);
             }
+        }
+
+        public override void Draw()
+        {
+            Console.Clear();
+            border.Draw();
+            snake.Draw();
+            food.Draw();
+            AddScore();
         }
 
         bool IsEated()
         {
-            if (food.X == snake._Line.Last().X && food.Y == snake._Line.Last().Y)
+            if (food.X == snake.GetHead().X && food.Y == snake.GetHead().Y)
             {
                 return true;
             }
@@ -81,8 +75,8 @@ namespace Snake_2._0
 
         void AddScore()
         {
-            Console.SetCursorPosition(0, heightScene - 5);
-            Console.Write($"Score {score}");
+            Console.SetCursorPosition(0, border.HeightScene - 5);
+            Console.WriteLine($"Score {score}");
         }
 
         void CreateFood()

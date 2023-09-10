@@ -21,7 +21,7 @@ namespace Snake_2._0
             Sign = sign;
         }
 
-        public void Move(int offset, Direction direction)
+        public virtual void Move(Direction direction, int offset = 1)
         {
             switch (direction)
             {

@@ -13,7 +13,6 @@ namespace Snake_2._0
         {
             Sign = '$';
             Create();
-            Draw();
         }
 
         protected Food(int x, int y, char sign)

@@ -61,5 +61,17 @@ namespace Snake_2._0
                 symbol.Draw();
             }
         }
+
+        public bool IsHit(Symbol sym)
+        {
+            foreach (Symbol symbol in _Line)
+            {
+                if (symbol.X == sym.X && symbol.Y == sym.Y)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
