@@ -7,21 +7,12 @@ using System.Xml.Linq;
 
 namespace Snake_2._0
 {
-    enum GameState
-    {
-        Play,
-        CreateAccount,
-        ViewRecordTable,
-        Quit
-    }
     internal class StartScene : Scene
     {
         public Pointer pointer;
-        public GameState state { get; private set; }
         public StartScene(Border border) : base(border)
         {
-            isActive = true;
-            state = GameState.Play;
+            IsActive = true;
             pointer = new Pointer(border.WidthScen / 2 - 7);
         }
 
@@ -33,21 +24,22 @@ namespace Snake_2._0
             WriteHelp();
         }
 
-
         public override void Update()
         {
-            while (isActive)
+            IsActive = true;
+            while (IsActive)
             {
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
                     pointer.HandleKey(key.Key);
                     pointer.Draw();
-                    state = (GameState)pointer.Offset;
+                    Game.state = (GameState)pointer.Offset;
 
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        isActive = false;
+                        Game.state = (GameState)pointer.Offset;
+                        IsActive = false;
                     }
                 }
             }

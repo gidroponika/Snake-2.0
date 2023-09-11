@@ -11,17 +11,17 @@
     {
         static void Main()
         {
-            Border border = new(100, 45);
+            /*Border border = new(100, 45);
             StartScene start = new(border);
             start.Draw();
             start.Update();
 
             GameScene gameScene = new(border);
             gameScene.Draw();
-            gameScene.Update();
+            gameScene.Update();*/
 
-            //Game game = new(100, 45);
-            //game.Play();
+            Game game = new(100, 45);
+            game.Play();
         }
     }
 }

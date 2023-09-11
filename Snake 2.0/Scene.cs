@@ -8,7 +8,7 @@ namespace Snake_2._0
 {
     internal abstract class Scene
     {
-        protected bool isActive;
+        public bool IsActive { get; protected set; }
         protected Border border;
 
         protected Scene(Border border)

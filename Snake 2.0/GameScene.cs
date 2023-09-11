@@ -14,11 +14,11 @@ namespace Snake_2._0
         Snake snake;
         Food food;
 
-        public GameScene(Border border) : base(border)
+        public GameScene(Border border)
+            : base(border)
         {
-
             score = 0;
-            isActive = true;
+            IsActive = true;
 
             snake = new(new Symbol(border.WidthScen / 2, border.HeightScene / 2, '@'));
             food = new();
@@ -30,7 +30,8 @@ namespace Snake_2._0
 
         public override void Update()
         {
-            while (isActive)
+            IsActive = true;
+            while (IsActive)
             {
                 if (Console.KeyAvailable)
                 {
@@ -49,10 +50,13 @@ namespace Snake_2._0
                     snake.Move();
                 }
 
-                isActive = snake.IsEatYourself() && border.IsOutBorder(snake.GetHead());
+                IsActive = snake.IsEatYourself() && border.IsOutBorder(snake.GetHead());
+                Game.state = GameState.Start;
+                
 
                 Thread.Sleep(snake.Speed);
             }
+            Console.Clear();
         }
 
         public override void Draw()
