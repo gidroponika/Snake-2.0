@@ -35,24 +35,10 @@ namespace Snake_2._0
             }
         }
 
-        /*public bool IsHit(Symbol sym)
-        {
-            bool isHit = true;
-            foreach (Line line in lines)
-            { 
-                isHit = line.IsHit(sym);
-            }
-            return isHit;
-        }*/
+        public bool IsOutBorder(Symbol sym)=>
+             ((sym.X > 0 && sym.X < WidthScen - 2) &&
+              (sym.Y > 0 && sym.Y < HeightScene - 10));
 
-        public bool IsOutBorder(Symbol sym)
-        {
-            if ((sym.X > 0 && sym.X < WidthScen - 2) &&
-                (sym.Y > 0 && sym.Y < HeightScene - 10))
-            {
-                return true;
-            }
-            return false;
-        }
+
     }
 }

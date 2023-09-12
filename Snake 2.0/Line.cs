@@ -12,11 +12,11 @@ namespace Snake_2._0
         public Direction Direction { get; set; }
 
         protected Symbol origin;
-        public List<Symbol> _Line { get; protected set; }
+        public List<Symbol> ListSymbols { get; protected set; }
 
         public Line(Symbol symbol, Direction direction, int length)
         {
-            _Line = new List<Symbol>();
+            ListSymbols = new List<Symbol>();
             origin = symbol;
             Length = length;
             Direction = direction;
@@ -30,25 +30,25 @@ namespace Snake_2._0
                 case Direction.Right:
                     for (int i = 0; i < Length; i++)
                     {
-                        _Line.Add(new Symbol(origin.X + i, origin.Y, origin.Sign));
+                        ListSymbols.Add(new Symbol(origin.X + i, origin.Y, origin.Sign));
                     }
                     break;
                 case Direction.Left:
                     for (int i = 0; i < Length; i++)
                     {
-                        _Line.Add(new Symbol(origin.X - i, origin.Y, origin.Sign));
+                        ListSymbols.Add(new Symbol(origin.X - i, origin.Y, origin.Sign));
                     }
                     break;
                 case Direction.Down:
                     for (int i = 0; i < Length; i++)
                     {
-                        _Line.Add(new Symbol(origin.X, origin.Y + i, origin.Sign));
+                        ListSymbols.Add(new Symbol(origin.X, origin.Y + i, origin.Sign));
                     }
                     break;
                 case Direction.Top:
                     for (int i = 0; i < Length; i++)
                     {
-                        _Line.Add(new Symbol(origin.X, origin.Y - i, origin.Sign));
+                        ListSymbols.Add(new Symbol(origin.X, origin.Y - i, origin.Sign));
                     }
                     break;
             }
@@ -56,7 +56,7 @@ namespace Snake_2._0
 
         virtual public void Draw()
         {
-            foreach (Symbol symbol in _Line)
+            foreach (Symbol symbol in ListSymbols)
             {
                 symbol.Draw();
             }
@@ -64,7 +64,7 @@ namespace Snake_2._0
 
         public bool IsHit(Symbol sym)
         {
-            foreach (Symbol symbol in _Line)
+            foreach (Symbol symbol in ListSymbols)
             {
                 if (symbol.X == sym.X && symbol.Y == sym.Y)
                 {

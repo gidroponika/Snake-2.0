@@ -8,8 +8,8 @@ namespace Snake_2._0
 {
     class Pointer : Symbol
     {
-        int offset;
-        const int START_Y = 10;
+        private int offset;
+        private const int startY = 10;
 
         public int Offset
         {
@@ -34,7 +34,7 @@ namespace Snake_2._0
             }
         }
 
-        public Pointer(int x, int y = START_Y, char sign = '>')
+        public Pointer(int x, int y = startY, char sign = '>')
             : base(x, y, sign)
         {
             Offset = 0;
@@ -53,7 +53,7 @@ namespace Snake_2._0
                     Offset += offset;
                     break;
             }
-            Y = START_Y + Offset;
+            Y = startY + Offset;
         }
 
         public void HandleKey(ConsoleKey key)
@@ -65,10 +65,6 @@ namespace Snake_2._0
             else if (key == ConsoleKey.UpArrow)
             {
                 Move(Direction.Top);
-            }
-            else if (key == ConsoleKey.Enter)
-            {
-
             }
         }
     }

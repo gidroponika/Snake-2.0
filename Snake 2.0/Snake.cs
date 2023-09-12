@@ -11,8 +11,6 @@ namespace Snake_2._0
     {
         public event Action Eated;
 
-        int speed;
-
         public int Speed
         {
             get { return speed; }
@@ -28,8 +26,7 @@ namespace Snake_2._0
                 }
             }
         }
-        Direction direction;
-        Direction Direction
+        public Direction Direction
         {
             get
             {
@@ -50,6 +47,9 @@ namespace Snake_2._0
             }
         }
 
+        private int speed;
+        private Direction direction;
+
         public Snake(Symbol symbol, Direction direction = Direction.Left, int length = 3)
             : base(symbol, direction, length)
         {
@@ -59,10 +59,10 @@ namespace Snake_2._0
 
         public void Move()
         {
-            Symbol tail = _Line.First();
-            _Line.Remove(tail);
+            Symbol tail = ListSymbols.First();
+            ListSymbols.Remove(tail);
             Symbol newHead = GetNewHead();
-            _Line.Add(newHead);
+            ListSymbols.Add(newHead);
 
             newHead.Draw();
             tail.Clear();
@@ -71,20 +71,20 @@ namespace Snake_2._0
         public void Eat()
         {
             Symbol head = GetNewHead();
-            _Line.Add(head);
+            ListSymbols.Add(head);
             head.Draw();
         }
 
         public Symbol GetHead()
         {
-            return _Line.Last();
+            return ListSymbols.Last();
         }
 
         public bool IsEatYourself()
         {
-            for (int i = 0; i < _Line.Count - 1; i++)
+            for (int i = 0; i < ListSymbols.Count - 1; i++)
             {
-                if (_Line.Last().X == _Line[i].X && _Line.Last().Y == _Line[i].Y)
+                if (ListSymbols.Last().X == ListSymbols[i].X && ListSymbols.Last().Y == ListSymbols[i].Y)
                 {
                     return false;
                 }
@@ -99,30 +99,22 @@ namespace Snake_2._0
 
         public void HandleKey(ConsoleKey key)
         {
-            if (key == ConsoleKey.DownArrow)
+            Direction = key switch
             {
-                Direction = Direction.Down;
-            }
-            else if (key == ConsoleKey.UpArrow)
-            {
-                Direction = Direction.Top;
-            }
-            else if (key == ConsoleKey.LeftArrow)
-            {
-                Direction = Direction.Left;
-            }
-            else if (key == ConsoleKey.RightArrow)
-            {
-                Direction = Direction.Right;
-            }
+                ConsoleKey.DownArrow => Direction.Down,
+                ConsoleKey.UpArrow => Direction.Top,
+                ConsoleKey.LeftArrow => Direction.Left,
+                ConsoleKey.RightArrow => Direction.Right,
+            };
             Speed = 100;
         }
 
         Symbol GetNewHead()
         {
-            Symbol head = _Line.Last();
+            Symbol head = ListSymbols.Last();
             Symbol newHead = new(head.X, head.Y, head.Sign);
             newHead.Move(Direction);
+
             return newHead;
         }
     }

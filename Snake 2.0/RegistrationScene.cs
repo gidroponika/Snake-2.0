@@ -62,10 +62,10 @@ namespace Snake_2._0
                 }
             }
 
-            Game.state = GameState.Start;
+            Game.State = GameState.Start;
             Console.CursorVisible = false;
             players.AddPlayer(login, password);
-            Console.Clear();
+            //Console.Clear();
         }
     }
 }

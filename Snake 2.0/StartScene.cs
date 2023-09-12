@@ -9,7 +9,7 @@ namespace Snake_2._0
 {
     internal class StartScene : Scene
     {
-        public Pointer pointer;
+        private Pointer pointer;
         public StartScene(Border border) : base(border)
         {
             IsActive = true;
@@ -18,6 +18,7 @@ namespace Snake_2._0
 
         public override void Draw()
         {
+            Console.Clear();
             WriteTitle();
             pointer.Draw();
             WriteMenu();
@@ -26,7 +27,6 @@ namespace Snake_2._0
 
         public override void Update()
         {
-            IsActive = true;
             while (IsActive)
             {
                 if (Console.KeyAvailable)
@@ -34,11 +34,11 @@ namespace Snake_2._0
                     ConsoleKeyInfo key = Console.ReadKey();
                     pointer.HandleKey(key.Key);
                     pointer.Draw();
-                    Game.state = (GameState)pointer.Offset;
+                    Game.State = (GameState)pointer.Offset;
 
                     if (key.Key == ConsoleKey.Enter)
                     {
-                        Game.state = (GameState)pointer.Offset;
+                        Game.State = (GameState)pointer.Offset;
                         IsActive = false;
                     }
                 }

@@ -9,10 +9,10 @@ namespace Snake_2._0
 {
     internal class GameScene : Scene
     {
-        int score;
+        private int score;
 
-        Snake snake;
-        Food food;
+        private Snake snake;
+        private Food food;
 
         public GameScene(Border border)
             : base(border)
@@ -30,7 +30,6 @@ namespace Snake_2._0
 
         public override void Update()
         {
-            IsActive = true;
             while (IsActive)
             {
                 if (Console.KeyAvailable)
@@ -51,8 +50,7 @@ namespace Snake_2._0
                 }
 
                 IsActive = snake.IsEatYourself() && border.IsOutBorder(snake.GetHead());
-                Game.state = GameState.Start;
-                
+                Game.State = GameState.Start;
 
                 Thread.Sleep(snake.Speed);
             }
@@ -86,7 +84,7 @@ namespace Snake_2._0
         void CreateFood()
         {
             food.Create();
-            foreach (Symbol sym in snake._Line)
+            foreach (Symbol sym in snake.ListSymbols)
             {
                 if (food.X == sym.X && food.Y == sym.Y)
                 {
