@@ -12,7 +12,6 @@ namespace Snake_2._0
     internal class Game
     {
         public static GameState State { get; set; }
-        public static Player player;
         private Border border;
         private Dictionary<string, Scene> scenes = new Dictionary<string, Scene>();
 
@@ -65,9 +64,9 @@ namespace Snake_2._0
                         scenes[registration].Draw();
                         scenes[registration].Update();
                         break;
-
+                    case GameState.ViewRecordTable:
+                        return;
                     case GameState.Quit:
-                        RegistrationScene.players.SavePlayers();
                         return;
                 }
             }
