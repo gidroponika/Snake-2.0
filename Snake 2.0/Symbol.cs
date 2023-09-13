@@ -8,29 +8,48 @@ namespace Snake_2._0
 {
     internal class Symbol
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
-        public char Token{ get; private set; }
+        public int X { get; protected set; }
+        public int Y { get; protected set; }
+        public char Sign { get; protected set; }
 
-        public Symbol(int x,int y,char token)
+        protected Symbol() { }
+
+        public Symbol(int x, int y, char sign)
         {
             X = x;
             Y = y;
-            Token = token;
+            Sign = sign;
         }
 
-        public void Draw()
+        public virtual void Move(Direction direction, int offset = 1)
         {
-            Console.SetCursorPosition(X,Y);
-            //Console.Write(' ');
-            Console.Write(Token);
+            switch (direction)
+            {
+                case Direction.Left:
+                    X -= offset;
+                    break;
+                case Direction.Right:
+                    X += offset;
+                    break;
+                case Direction.Top:
+                    Y -= offset;
+                    break;
+                case Direction.Down:
+                    Y += offset;
+                    break;
+            }
         }
 
-        public void Draw(int x,int y)
+        public virtual void Draw()
         {
-            Console.SetCursorPosition(x, y);
+            Console.SetCursorPosition(X, Y);
+            Console.Write(Sign);
+        }
+
+        public void Clear()
+        {
+            Console.SetCursorPosition(X, Y);
             Console.Write(' ');
-            Console.Write(Token);
         }
     }
 }

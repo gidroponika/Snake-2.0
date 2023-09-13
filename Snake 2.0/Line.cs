@@ -8,46 +8,49 @@ namespace Snake_2._0
 {
     internal class Line
     {
-        private List<Symbol>line=new List<Symbol>();
-        public readonly int Length;
-        public Direction direction { get; set; }
+        public int Length { get; protected set; }
+        public Direction Direction { get; set; }
 
-        private Symbol origin;
+        protected Symbol origin;
 
-        public Line(Symbol symbol,int length, Direction direction)
+        public List<Symbol> ListSymbols { get; protected set; }
+
+        public Line(Symbol symbol, Direction direction, int length)
         {
-            origin= symbol;
+            ListSymbols = new List<Symbol>();
+            origin = symbol;
             Length = length;
-            this.direction = direction;
+            Direction = direction;
 
             InitialLine();
         }
+
         protected void InitialLine()
         {
-            switch (direction)
+            switch (Direction)
             {
                 case Direction.Right:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X + i, origin.Y, origin.Token));
+                        ListSymbols.Add(new Symbol(origin.X + i, origin.Y, origin.Sign));
                     }
                     break;
                 case Direction.Left:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X - i, origin.Y, origin.Token));
+                        ListSymbols.Add(new Symbol(origin.X - i, origin.Y, origin.Sign));
                     }
                     break;
                 case Direction.Down:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X, origin.Y + i, origin.Token));
+                        ListSymbols.Add(new Symbol(origin.X, origin.Y + i, origin.Sign));
                     }
                     break;
                 case Direction.Top:
                     for (int i = 0; i < Length; i++)
                     {
-                        line.Add(new Symbol(origin.X, origin.Y - i, origin.Token));
+                        ListSymbols.Add(new Symbol(origin.X, origin.Y - i, origin.Sign));
                     }
                     break;
             }
@@ -55,10 +58,22 @@ namespace Snake_2._0
 
         virtual public void Draw()
         {
-            foreach (Symbol symbol in line)
+            foreach (Symbol symbol in ListSymbols)
             {
                 symbol.Draw();
             }
+        }
+
+        public bool IsHit(Symbol sym)
+        {
+            foreach (Symbol symbol in ListSymbols)
+            {
+                if (symbol.X == sym.X && symbol.Y == sym.Y)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
