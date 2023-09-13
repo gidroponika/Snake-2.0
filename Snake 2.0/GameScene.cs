@@ -11,8 +11,8 @@ namespace Snake_2._0
     {
         private int score;
 
-        private Snake snake;
-        private Food food;
+        private readonly Snake snake;
+        private readonly Food food;
 
         public GameScene(Border border)
             : base(border)
@@ -66,7 +66,7 @@ namespace Snake_2._0
             AddScore();
         }
 
-        bool IsEated()
+        private bool IsEated()
         {
             if (food.X == snake.GetHead().X && food.Y == snake.GetHead().Y)
             {
@@ -75,13 +75,13 @@ namespace Snake_2._0
             return false;
         }
 
-        void AddScore()
+        private void AddScore()
         {
             Console.SetCursorPosition(0, border.HeightScene - 5);
             Console.WriteLine($"Score {score}");
         }
 
-        void CreateFood()
+        private void CreateFood()
         {
             food.Create();
             foreach (Symbol sym in snake.ListSymbols)

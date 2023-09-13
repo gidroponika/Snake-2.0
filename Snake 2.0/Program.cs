@@ -1,21 +1,5 @@
 ﻿namespace Snake_2._0
 {
-    enum Direction
-    {
-        Left,
-        Right,
-        Top,
-        Down
-    }
-
-    enum GameState
-    {
-        Start = -1,
-        Play,
-        CreateAccount,
-        ViewRecordTable,
-        Quit
-    }
     internal class Program
     {
         static void Main()

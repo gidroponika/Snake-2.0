@@ -109,7 +109,7 @@ namespace Snake_2._0
             Speed = 100;
         }
 
-        Symbol GetNewHead()
+        private Symbol GetNewHead()
         {
             Symbol head = ListSymbols.Last();
             Symbol newHead = new(head.X, head.Y, head.Sign);

@@ -8,9 +8,10 @@ namespace Snake_2._0
 {
     internal class Border
     {
-        Line[] lines = new Line[4];
         public int WidthScen { get; protected set; }
         public int HeightScene { get; protected set; }
+
+        private Line[] lines = new Line[4];
 
         public Border(int widthScen, int heightScene)
         {

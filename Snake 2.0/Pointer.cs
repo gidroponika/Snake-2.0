@@ -8,9 +8,6 @@ namespace Snake_2._0
 {
     class Pointer : Symbol
     {
-        private int offset;
-        private const int startY = 10;
-
         public int Offset
         {
             get
@@ -33,6 +30,9 @@ namespace Snake_2._0
                 }
             }
         }
+
+        private int offset;
+        private const int startY = 10;
 
         public Pointer(int x, int y = startY, char sign = '>')
             : base(x, y, sign)

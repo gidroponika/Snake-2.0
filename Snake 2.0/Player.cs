@@ -8,9 +8,10 @@ namespace Snake_2._0
 {
     internal class Player
     {
-        int record;
         public int Score { get; set; }
         public string Login { get; private set; }
+
+        private int record;
         public int Record
         {
             get { return record; }

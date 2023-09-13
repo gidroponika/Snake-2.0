@@ -12,6 +12,7 @@ namespace Snake_2._0
         public Direction Direction { get; set; }
 
         protected Symbol origin;
+
         public List<Symbol> ListSymbols { get; protected set; }
 
         public Line(Symbol symbol, Direction direction, int length)
@@ -23,6 +24,7 @@ namespace Snake_2._0
 
             InitialLine();
         }
+
         protected void InitialLine()
         {
             switch (Direction)

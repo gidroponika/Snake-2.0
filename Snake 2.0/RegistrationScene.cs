@@ -8,11 +8,9 @@ namespace Snake_2._0
 {
     internal class RegistrationScene : Scene
     {
-        public static PlayersData players;
         public RegistrationScene(Border border)
             : base(border)
         {
-            players = new PlayersData();
         }
 
         public override void Draw()
@@ -64,8 +62,6 @@ namespace Snake_2._0
 
             Game.State = GameState.Start;
             Console.CursorVisible = false;
-            players.AddPlayer(login, password);
-            //Console.Clear();
         }
     }
 }

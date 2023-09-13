@@ -8,7 +8,7 @@ namespace Snake_2._0
 {
     internal class Food : Symbol
     {
-        static Random rnd = new Random();
+        public static Random rnd = new Random();
         public Food()
         {
             Sign = '$';

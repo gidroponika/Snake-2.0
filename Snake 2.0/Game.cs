@@ -12,8 +12,9 @@ namespace Snake_2._0
     internal class Game
     {
         public static GameState State { get; set; }
+
         private Border border;
-        private Dictionary<string, Scene> scenes = new Dictionary<string, Scene>();
+        private Dictionary<string, Scene> scenes;
 
         private const string start = "start";
         private const string game = "game";
@@ -21,6 +22,7 @@ namespace Snake_2._0
 
         public Game(int widthScen, int heightScene)
         {
+            scenes = new Dictionary<string, Scene>();
             State = GameState.Start;
             border = new(widthScen, heightScene);
             scenes.Add(start, new StartScene(border));
