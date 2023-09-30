@@ -4,13 +4,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Snake_2._0
 {
 
     internal class Game
     {
+        public static PlayersData pd;
+        public static Player player;
         public static GameState State { get; set; }
 
         private Border border;
@@ -19,6 +20,7 @@ namespace Snake_2._0
         private const string start = "start";
         private const string game = "game";
         private const string registration = "registration";
+        private const string enter = "enter";
 
         public Game(int widthScen, int heightScene)
         {
@@ -28,6 +30,11 @@ namespace Snake_2._0
             scenes.Add(start, new StartScene(border));
             scenes.Add(game, new GameScene(border));
             scenes.Add(registration, new RegistrationScene(border));
+            scenes.Add(enter, new EnterScene(border));
+
+            pd = new PlayersData();
+            //player=pd.GetDefaultPlayer();
+            player=new Player();
         }
 
         public void Play()
@@ -62,6 +69,11 @@ namespace Snake_2._0
                         }
                         break;
 
+                    case GameState.Enter:
+                        scenes[enter].Draw();
+                        scenes[enter].Update();
+                        break;
+
                     case GameState.CreateAccount:
                         scenes[registration].Draw();
                         scenes[registration].Update();
@@ -69,6 +81,7 @@ namespace Snake_2._0
                     case GameState.ViewRecordTable:
                         return;
                     case GameState.Quit:
+                        pd.SaveData();
                         return;
                 }
             }

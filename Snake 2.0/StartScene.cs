@@ -18,7 +18,7 @@ namespace Snake_2._0
 
         public override void Draw()
         {
-            Console.Clear();
+            base.Draw();
             WriteTitle();
             pointer.Draw();
             WriteMenu();
@@ -66,19 +66,25 @@ namespace Snake_2._0
 
         void WriteHelp()
         {
-            string message = "For navigation press arrows UP or DOWN. " +
+            string helloMessage = $"Hello, {Game.player.Login}";
+            string message = $"For navigation press {'\u2191'} or {'\u2193'}. " +
                 "For choice press ENTER";
+
+            Console.SetCursorPosition(border.WidthScen / 2 - helloMessage.Length / 2, border.HeightScene - 5);
+            Console.ForegroundColor= ConsoleColor.Cyan;
+            Console.Write(helloMessage);
+            Console.ResetColor();
 
             Console.SetCursorPosition(border.WidthScen / 2 - message.Length / 2, border.HeightScene - 3);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(message);
+            Console.Write(message);
             Console.ResetColor();
         }
 
         void WriteMenu()
         {
             int x = pointer.X + 2, y = pointer.Y;
-            string[] menu = { "PLAY", "ENTER / CREATE ACCOUNT",
+            string[] menu = { "PLAY", $"ENTER","CREATE ACCOUNT",
                               "VIEW RECORDS TABLE", "QUIT" };
 
             for (int i = y; i < menu.Length + y; i++)

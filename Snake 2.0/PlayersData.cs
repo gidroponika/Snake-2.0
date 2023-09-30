@@ -8,73 +8,89 @@ using Newtonsoft.Json;
 
 namespace Snake_2._0
 {
-    //internal class PlayersData
-    //{
-    //    const string PATH = "C:\\SaveSnake\\";
-    //    const string SAVE = "save.json";
-    //    List<Player>players = new List<Player>();
+    internal class PlayersData
+    {
+        public List<Player> Players { get; private set; }
+        private const string path = "C:\\SnakeSave\\";
+        private const string file = "save.json";
 
-    //    public PlayersData()
-    //    {
-    //        players.Add(new Player());
-    //        players.Add(new Player("max","123456"));
-    //        players.Add(new Player("QQQQ", "qwerty"));
-    //        players.Add(new Player("AAAAA", "987654"));
-    //        InitializeData();
+        public PlayersData()
+        {
+            Initialize();
+        }
 
-    //    }
+        public Player GetDefaultPlayer()
+        {
+            /**foreach (var player in Players)
+            {
+                if(string.Compare(player.Login,"anonim",false) == 0)
+                {
+                    return player;
+                }
+            }
+            Player p = new Player();
+            Players.Add(p);
 
-    //    public Player GetPlayer(string login,string password)
-    //    {
-    //        foreach (Player player in players)
-    //        {
-    //            if (string.Compare(player.Login,login,false) == 0 &&
-    //                string.Compare(player.Password,password,false) == 0)
-    //            {
-    //                return player;
-    //            }
-    //        }
-    //        return new Player();
-    //    }
+            return p;*/
+            return new Player();
+        }
 
-    //    public void AddPlayer(string login,string password)
-    //    {
-    //        foreach (Player player in players)
-    //        {
-    //            if (player.Login.CompareTo(login) == 0 &&
-    //                player.Password.CompareTo(password) == 0)
-    //            {
-    //                return;
-    //            }
-    //        }
-    //        players.Add(new Player(login,password));
-    //    }
+        public void CreateNewPlayer(string login,string password)
+        {
+            var player = new Player(login,password);
+            Players.Add(player);
+        }
 
-    //    void InitializeData()
-    //    {
-    //        if (File.Exists(PATH))
-    //        {
-    //            Stream stream = File.OpenRead(PATH);
-    //            string data=File.ReadAllText(PATH+ SAVE);
-    //            PlayersData pData = JsonConvert.DeserializeObject<PlayersData>(data);
-    //            players = pData.players;
-    //            stream.Close();
-    //        }
-    //        else
-    //        {
-    //            Directory.CreateDirectory(PATH);
-    //            var file=File.Create(PATH+SAVE);
-    //            players.Add(new Player());
-    //            file.Close();
-    //        }
-    //    }
+        public void SaveData()
+        {
+            //DeleteInvalidPlayer();
 
-    //    public void SavePlayers()
-    //    {
-    //        //Stream file=File.OpenWrite(path+save);
-    //        string saveString = JsonConvert.SerializeObject(this, Formatting.Indented);
-    //        File.WriteAllText(PATH + SAVE, saveString);
-    //        //file.Close();
-    //    }
-    //}
+            string save = JsonConvert.SerializeObject(Players, Formatting.Indented);
+            File.WriteAllText(path + file, save);
+        }
+
+        private void Initialize()
+        {
+            if (!File.Exists(path + file))
+            {
+                Directory.CreateDirectory(path);
+                FileStream st=File.Create(path + file);
+                st.Close();
+                Players = new List<Player>(); 
+                /*{
+                    new Player()
+                };*/
+            }
+            else
+            {
+                string save=File.ReadAllText(path + file);
+                List<Player> pd = JsonConvert.DeserializeObject<List<Player>>(save);
+                Players= pd;
+            }
+        }
+
+        public Player GetPlayer(string login, string password)
+        {
+            foreach(Player player in Players)
+            {
+                if(player.Login == login && player.Password == password)
+                {
+                    return player;
+                }
+            }
+            Console.WriteLine("Користувача не знайдено");
+            return null;
+        }
+
+        private void DeleteInvalidPlayer()
+        {
+            for (int i = 0; i < Players.Count; i++)
+            {
+                if (!Players[i].IsValid())
+                {
+                    Players.RemoveAt(i);
+                }
+            }
+        }
+    }
 }

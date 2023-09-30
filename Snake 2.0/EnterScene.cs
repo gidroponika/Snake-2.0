@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Snake_2._0
 {
-    internal class RegistrationScene : Scene
+    internal class EnterScene : Scene
     {
-        public RegistrationScene(Border border)
-            : base(border)
+        public EnterScene(Border border) : base(border)
         {
         }
 
@@ -26,7 +25,34 @@ namespace Snake_2._0
             string login;
             string password;
 
-            while (true)
+            Console.Write("Введіть свій логін: ");
+            login = Console.ReadLine();
+            Console.WriteLine();
+            Console.Write("Введіть свій пароль: ");
+            password = Console.ReadLine();
+
+            Player p = Game.pd.GetPlayer(login, password);
+
+            if (p != null)
+            {
+                Game.player = Game.pd.GetPlayer(login, password);
+            }
+
+            IsActive = false;
+            Game.State = GameState.Start;
+            Console.CursorVisible = false;
+
+
+
+
+
+
+            /*foreach(var player in Game.pd.Players)
+            {
+                if(login == player.Login && password == player.Pas)
+            }*/
+
+            /*while (true)
             {
                 Console.Write("Введіть свій логін: ");
                 login = Console.ReadLine();
@@ -40,9 +66,9 @@ namespace Snake_2._0
                 {
                     break;
                 }
-            }
+            }*/
 
-            Console.WriteLine();
+            /*Console.WriteLine();
 
             while (true)
             {
@@ -61,12 +87,8 @@ namespace Snake_2._0
             }
 
             Game.pd.CreateNewPlayer(login, password);
-
-            IsActive = false;
-
             Game.State = GameState.Start;
-            Console.CursorVisible = false;
-
+            Console.CursorVisible = false;*/
         }
     }
 }

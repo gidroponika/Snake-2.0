@@ -18,6 +18,7 @@ namespace Snake_2._0
     {
         Start = -1,
         Play,
+        Enter,
         CreateAccount,
         ViewRecordTable,
         Quit

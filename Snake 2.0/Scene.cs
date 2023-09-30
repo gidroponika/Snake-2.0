@@ -13,11 +13,16 @@ namespace Snake_2._0
 
         protected Scene(Border border)
         {
+            IsActive = true;
             this.border = border;
         }
 
         public abstract void Update();
 
-        public abstract void Draw();
+        public virtual void Draw()
+        {
+            Console.Clear();
+        }
+
     }
 }

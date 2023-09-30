@@ -20,7 +20,7 @@ namespace Snake_2._0
             score = 0;
             IsActive = true;
 
-            snake = new(new Symbol(border.WidthScen / 2, border.HeightScene / 2, '@'));
+            snake = new(new Symbol(border.WidthScen / 2, border.HeightScene / 2, '\u263a'));
             food = new();
 
             snake.Eated += CreateFood;
@@ -54,12 +54,36 @@ namespace Snake_2._0
 
                 Thread.Sleep(snake.Speed);
             }
+
+            WriteGameOver();
+            Console.ReadKey();
+
             Console.Clear();
+        }
+
+        private void WriteGameOver()
+        {
+            string[] gameOver = {"▄███▄ ▄██▄ █▄ ▄█ █▀▀▀   ▄██▄ █  █ █▀▀▀ █▀▀▄",
+                                 "█     █  █ █ ▀ █ █▄▄    █  █ █  █ █▄▄  █▄▄▀",
+                                 "█  ▀█ █▀▀█ █   █ █      █  █ █  █ █    █ █ ",
+                                 "▀███▀ █  █ █   █ █▄▄▄   ▀██▀ ▀██▀ █▄▄▄ █  █",
+
+            };
+            int x=border.WidthScen/2- gameOver[0].Length/2;
+            int y = 10;
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            for(int i=0;i<gameOver.Length;i++)
+            {
+                Console.SetCursorPosition(x, y+i);
+                Console.Write(gameOver[i]);
+            }
+            Console.ResetColor();
         }
 
         public override void Draw()
         {
-            Console.Clear();
+            base.Draw();
             border.Draw();
             snake.Draw();
             food.Draw();
@@ -78,7 +102,8 @@ namespace Snake_2._0
         private void AddScore()
         {
             Console.SetCursorPosition(0, border.HeightScene - 5);
-            Console.WriteLine($"Score {score}");
+            //Console.WriteLine($"Score {score}");
+            Console.WriteLine($"{Game.player.Login} {score}");
         }
 
         private void CreateFood()

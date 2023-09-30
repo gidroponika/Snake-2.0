@@ -22,10 +22,10 @@ namespace Snake_2._0
             Console.SetBufferSize(widthScen, heightScene);
             Console.CursorVisible = false;
 
-            lines[0] = new Line(new Symbol(0, 0, '#'), Direction.Right, widthScen);
-            lines[1] = new Line(new Symbol(0, 0, '#'), Direction.Down, heightScene - 10);
-            lines[2] = new Line(new Symbol(widthScen - 1, 0, '#'), Direction.Down, heightScene - 10);
-            lines[3] = new Line(new Symbol(0, heightScene - 10, '#'), Direction.Right, widthScen);
+            lines[0] = new Line(new Symbol(0, 0, '\u2588'), Direction.Right, widthScen);
+            lines[1] = new Line(new Symbol(0, 0, '\u2588'), Direction.Down, heightScene - 10);
+            lines[2] = new Line(new Symbol(widthScen - 1, 0, '\u2588'), Direction.Down, heightScene - 10);
+            lines[3] = new Line(new Symbol(0, heightScene - 10, '\u2588'), Direction.Right, widthScen);
         }
 
         public void Draw()

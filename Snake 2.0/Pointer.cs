@@ -18,9 +18,9 @@ namespace Snake_2._0
             {
                 if (value < 0)
                 {
-                    offset = 3;
+                    offset = 4;
                 }
-                else if (value > 3)
+                else if (value > 4)
                 {
                     offset = 0;
                 }
@@ -34,7 +34,7 @@ namespace Snake_2._0
         private int offset;
         private const int startY = 10;
 
-        public Pointer(int x, int y = startY, char sign = '>')
+        public Pointer(int x, int y = startY, char sign = '\u25ba')
             : base(x, y, sign)
         {
             Offset = 0;
