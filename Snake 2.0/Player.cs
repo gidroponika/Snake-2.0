@@ -10,70 +10,18 @@ namespace Snake_2._0
     {
         public int Score { get; set; }
 
-        public string Login
-        {
-            get
-            {
-                return login;
-            }
+        public string Login { get; set; }
 
-            private set
-            {
-                string log = value.Trim();
-                if (log.Length >= 3)
-                {
-                    login = log;
-                }
-                else
-                {
-                    login = string.Empty;
-                }
-            }
-        }
+        public string Password { get; set; } 
 
-        public string Password 
-        {
-            get 
-            { 
-                return password;
-            }
-
-            set 
-            { 
-                string pas=value.Trim();
-                if (pas.Length >= 5)
-                {
-                    password = pas;
-                }
-                else
-                {
-                    password = string.Empty;
-                }
-            } 
-        }
-
-        public int Record
-        {
-            get { return record; }
-            set
-            {
-                if (Score > record)
-                {
-                    record = value;
-                }
-            }
-        }
-
-        private int record;
-        private string password;
-        private string login;
+        public int Record { get; set; }
 
         public Player()
         {
             Score = 0;
             Login = "anonim";
             Record = 0;
-            password = string.Empty;
+            Password = string.Empty;
         }
 
         public Player(string login,string password)
@@ -83,17 +31,5 @@ namespace Snake_2._0
             Score = 0;
             Record = 0;
         }
-
-
-        ///?
-        /*public bool IsValid()
-        {
-            if((Login != "anonim" && string.IsNullOrEmpty(Password)) ||
-                string.IsNullOrEmpty(Password) && string.IsNullOrEmpty(Login))
-            {
-                return false;
-            }
-            return true;
-        }*/
     }
 }

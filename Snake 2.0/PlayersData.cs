@@ -19,20 +19,9 @@ namespace Snake_2._0
             Initialize();
         }
 
-        public Player GetDefaultPlayer()
+        public void Sort()
         {
-            /**foreach (var player in Players)
-            {
-                if(string.Compare(player.Login,"anonim",false) == 0)
-                {
-                    return player;
-                }
-            }
-            Player p = new Player();
-            Players.Add(p);
 
-            return p;*/
-            return new Player();
         }
 
         public void CreateNewPlayer(string login,string password)
@@ -43,10 +32,19 @@ namespace Snake_2._0
 
         public void SaveData()
         {
-            //DeleteInvalidPlayer();
-
             string save = JsonConvert.SerializeObject(Players, Formatting.Indented);
             File.WriteAllText(path + file, save);
+        }
+
+        public Player GetPlayer(string login, string password)
+        {
+            foreach (Player player in Players) {
+                if (player.Login == login && player.Password == password) {
+                    return player;
+                }
+            }
+
+            return null;
         }
 
         private void Initialize()
@@ -57,40 +55,13 @@ namespace Snake_2._0
                 FileStream st=File.Create(path + file);
                 st.Close();
                 Players = new List<Player>(); 
-                /*{
-                    new Player()
-                };*/
             }
             else
             {
                 string save=File.ReadAllText(path + file);
                 List<Player> pd = JsonConvert.DeserializeObject<List<Player>>(save);
-                Players= pd;
+                Players = pd;
             }
-        }
-
-        public Player GetPlayer(string login, string password)
-        {
-            foreach(Player player in Players)
-            {
-                if(player.Login == login && player.Password == password)
-                {
-                    return player;
-                }
-            }
-            Console.WriteLine("Користувача не знайдено");
-            return null;
-        }
-
-        private void DeleteInvalidPlayer()
-        {
-            for (int i = 0; i < Players.Count; i++)
-            {
-                if (!Players[i].IsValid())
-                {
-                    Players.RemoveAt(i);
-                }
-            }
-        }
+        }  
     }
 }

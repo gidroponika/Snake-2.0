@@ -16,8 +16,6 @@ namespace Snake_2._0
         {
             base.Draw();
             Console.CursorVisible = true;
-            Console.OutputEncoding = Encoding.Unicode;
-            Console.InputEncoding = Encoding.Unicode;
         }
 
         public override void Update()
@@ -25,8 +23,9 @@ namespace Snake_2._0
             string login;
             string password;
 
-            Console.Write("Введіть свій логін: ");
+            /*Console.Write("Введіть свій логін: ");
             login = Console.ReadLine();
+
             Console.WriteLine();
             Console.Write("Введіть свій пароль: ");
             password = Console.ReadLine();
@@ -36,16 +35,41 @@ namespace Snake_2._0
             if (p != null)
             {
                 Game.player = Game.pd.GetPlayer(login, password);
+            }*/
+            Console.WriteLine("Для виходу з форми регістрації введіть 'exit'");
+            Console.WriteLine();
+
+            while (true) 
+            {
+                Console.Write("Введіть свій логін: ");
+                login = Console.ReadLine();
+
+                if(login == "exit") 
+                {
+                    IsActive = false;
+                    Game.State = GameState.Start;
+                    Console.CursorVisible = false;
+                    return;
+                }
+                Console.WriteLine();
+                Console.Write("Введіть свій пароль: ");
+                password = Console.ReadLine();
+
+                Player p = Game.pd.GetPlayer(login, password);
+
+                if (p != null) {
+                    Game.player = Game.pd.GetPlayer(login, password);
+                    break;
+                } 
+                else 
+                {
+                    Console.WriteLine("Гравця не знайдено. Спробуйте ще раз");
+                }
             }
 
             IsActive = false;
             Game.State = GameState.Start;
             Console.CursorVisible = false;
-
-
-
-
-
 
             /*foreach(var player in Game.pd.Players)
             {

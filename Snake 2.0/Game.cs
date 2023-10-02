@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Snake_2._0
 {
-
     internal class Game
     {
         public static PlayersData pd;
@@ -21,19 +20,24 @@ namespace Snake_2._0
         private const string game = "game";
         private const string registration = "registration";
         private const string enter = "enter";
+        private const string leaderBoard = "leaderBoard";
 
         public Game(int widthScen, int heightScene)
         {
+            Console.OutputEncoding = Encoding.Unicode;
+            Console.InputEncoding = Encoding.Unicode;
+
             scenes = new Dictionary<string, Scene>();
             State = GameState.Start;
             border = new(widthScen, heightScene);
+
             scenes.Add(start, new StartScene(border));
             scenes.Add(game, new GameScene(border));
             scenes.Add(registration, new RegistrationScene(border));
             scenes.Add(enter, new EnterScene(border));
+            scenes.Add(leaderBoard, new LeaderBoardScene(border));
 
             pd = new PlayersData();
-            //player=pd.GetDefaultPlayer();
             player=new Player();
         }
 
@@ -65,21 +69,39 @@ namespace Snake_2._0
                         else
                         {
                             scenes.Remove(game);
+                            player.Score = 0;
                             scenes.Add(game, new GameScene(border));
                         }
                         break;
 
                     case GameState.Enter:
-                        scenes[enter].Draw();
-                        scenes[enter].Update();
+                        if (scenes[enter].IsActive) 
+                        {
+                            scenes[enter].Draw();
+                            scenes[enter].Update();
+                        } 
+                        else 
+                        {
+                            scenes.Remove(enter);
+                            scenes.Add(enter, new EnterScene(border));
+                        }
                         break;
 
                     case GameState.CreateAccount:
                         scenes[registration].Draw();
                         scenes[registration].Update();
                         break;
+
                     case GameState.ViewRecordTable:
-                        return;
+                        if (scenes[leaderBoard].IsActive) {
+                            scenes[leaderBoard].Draw();
+                            //scenes[leaderBoard].Update();
+                        } else {
+                            scenes.Remove(leaderBoard);
+                            scenes.Add(leaderBoard, new LeaderBoardScene(border));
+                        }
+                        break;
+
                     case GameState.Quit:
                         pd.SaveData();
                         return;

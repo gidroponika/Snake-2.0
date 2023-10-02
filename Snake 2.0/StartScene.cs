@@ -43,6 +43,7 @@ namespace Snake_2._0
                     }
                 }
             }
+            IsActive = false;
         }
 
         void WriteTitle()
@@ -67,13 +68,20 @@ namespace Snake_2._0
         void WriteHelp()
         {
             string helloMessage = $"Hello, {Game.player.Login}";
+            string record = $"Your record is {Game.player.Record}";
             string message = $"For navigation press {'\u2191'} or {'\u2193'}. " +
                 "For choice press ENTER";
 
-            Console.SetCursorPosition(border.WidthScen / 2 - helloMessage.Length / 2, border.HeightScene - 5);
+            Console.SetCursorPosition(border.WidthScen / 2 - helloMessage.Length / 2, border.HeightScene - 10);
             Console.ForegroundColor= ConsoleColor.Cyan;
             Console.Write(helloMessage);
             Console.ResetColor();
+
+            Console.SetCursorPosition(border.WidthScen / 2 - record.Length / 2, border.HeightScene - 9);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write(record);
+            Console.ResetColor();
+
 
             Console.SetCursorPosition(border.WidthScen / 2 - message.Length / 2, border.HeightScene - 3);
             Console.ForegroundColor = ConsoleColor.Green;

@@ -9,23 +9,22 @@ namespace Snake_2._0
 {
     internal class GameScene : Scene
     {
-        private int score;
-
         private readonly Snake snake;
         private readonly Food food;
 
         public GameScene(Border border)
             : base(border)
         {
-            score = 0;
             IsActive = true;
-
+            
             snake = new(new Symbol(border.WidthScen / 2, border.HeightScene / 2, '\u263a'));
             food = new();
 
+
             snake.Eated += CreateFood;
             snake.Eated += food.Draw;
-            snake.Eated += AddScore;
+            snake.Eated += CountScore;
+            snake.Eated += WriteInfo;
         }
 
         public override void Update()
@@ -41,7 +40,6 @@ namespace Snake_2._0
                 if (IsEated())
                 {
                     snake.Eat();
-                    score++;
                     snake.EventCall();
                 }
                 else
@@ -57,8 +55,7 @@ namespace Snake_2._0
 
             WriteGameOver();
             Console.ReadKey();
-
-            Console.Clear();
+            Game.player.Score = 0;
         }
 
         private void WriteGameOver()
@@ -87,7 +84,7 @@ namespace Snake_2._0
             border.Draw();
             snake.Draw();
             food.Draw();
-            AddScore();
+            WriteInfo();
         }
 
         private bool IsEated()
@@ -99,13 +96,20 @@ namespace Snake_2._0
             return false;
         }
 
-        private void AddScore()
+        private void WriteInfo()
         {
             Console.SetCursorPosition(0, border.HeightScene - 5);
-            //Console.WriteLine($"Score {score}");
-            Console.WriteLine($"{Game.player.Login} {score}");
+            Console.WriteLine($"{Game.player.Login}");
+            Console.WriteLine($"Score : {Game.player.Score}");
+            Console.WriteLine($"Your record : {Game.player.Record}");
         }
-
+        private void CountScore()
+        {
+            Game.player.Score++;
+            if (Game.player.Score > Game.player.Record) {
+                Game.player.Record=Game.player.Score;
+            }
+        }
         private void CreateFood()
         {
             food.Create();
